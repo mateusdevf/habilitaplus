@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Painel - Habilita+</title>
+  <meta name="description" content="Painel de cursos da Habilita+ — simulados, exercícios e guias práticos" />
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- CSS Externo -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" aria-label="Navegação principal">
+      <div class="brand">
+        <div class="logo"><img src="logo.jpg" alt="Logo Habilita+"></div>
+        <div>
+          <h1>Habilita+</h1>
+          <p class="muted">Aprenda. Pratique. Passe.</p>
+        </div>
+      </div>
+
+      <div class="search">
+        <input id="searchInput" placeholder="Buscar cursos, exercícios..." />
+      </div>
+
+      <nav>
+        <ul>
+          <li><a class="nav-btn active" href="#" data-section="dashboard"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+          <li><a class="nav-btn" href="#" data-section="cursos"><i class="fa-solid fa-book"></i> Cursos</a></li>
+          <li><a class="nav-btn" href="#" data-section="exercicios"><i class="fa-solid fa-pen-to-square"></i> Exercícios</a></li>
+          <li><a class="nav-btn" href="#" data-section="simulados"><i class="fa-solid fa-file-lines"></i> Simulados</a></li>
+          <li><a class="nav-btn" href="#" data-section="guias"><i class="fa-solid fa-map-location-dot"></i> Guias práticos</a></li>
+          <li><a class="nav-btn" href="#" data-section="progresso"><i class="fa-solid fa-chart-line"></i> Progresso</a></li>
+          <li><a class="nav-btn" href="#" data-section="config"><i class="fa-solid fa-gear"></i> Configurações</a></li>
+        </ul>
+      </nav>
+
+      <div style="margin-top:auto; padding-top: 16px;">
+        <div class="small">Modo:</div>
+        <div style="margin-top:8px" class="row">
+          <button id="themeToggle" class="btn secondary">Alternar Tema</button>
+          <div class="pill">Progresso: <strong id="sidebarProgress">0%</strong></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <h2 id="pageTitle">Dashboard</h2>
+          <div class="muted">Bem-vindo! Escolha um curso ou comece um simulado.</div>
+        </div>
+        <div class="controls">
+          <button class="btn" data-action="start-sim-10">Iniciar Simulado</button>
+          <button class="btn secondary" data-action="go-to-exercises">Ver Exercícios</button>
+        </div>
+      </div>
+
+      <section id="content">
+        <!-- Dashboard -->
+        <div id="dashboard" class="view" style="display:block">
+          <div class="grid">
+            <div class="card"><h3>Meus Cursos</h3><p class="meta">Cursos ativos e seu progresso</p><div style="margin-top:12px" class="course-grid" id="courseList"></div></div>
+            <div class="card"><h3>Próximos Simulados</h3><p class="meta">Treine como no dia do exame</p><div style="margin-top:12px" id="upcomingSim"></div></div>
+            <div class="card"><h3>Guia Rápido</h3><p class="meta">Passos essenciais para as aulas práticas</p><div style="margin-top:12px" class="list" id="quickGuide"></div></div>
+          </div>
+          <div style="height:18px"></div>
+          <div class="grid">
+            <div class="card"><h3>Exercícios Recentes</h3><p class="meta">Últimos exercícios finalizados</p><div id="recentExercises" style="margin-top:12px"></div></div>
+            <div class="card"><h3>Estatísticas</h3><p class="meta">Resumo do seu desempenho</p><div style="margin-top:12px"><div class="small">Acertos médios</div><div style="margin-top:6px" class="progress"><i id="avgProgress"></i></div><div style="margin-top:10px" class="small">Simulados completados: <strong id="simCount">0</strong></div><div style="margin-top:6px" class="small">Tempo de estudo: <strong id="timeStudied">0h</strong></div></div></div>
+            <div class="card"><h3>Dicas</h3><p class="meta">Como se preparar para a prova prática</p><ol style="margin:12px 0 0 18px" class="muted"><li>Mantenha a calma e pratique manobras devagar</li><li>Peça feedback ao instrutor e repita o exercício</li><li>Conheça o veículo antes de dirigir no exame</li></ol></div>
+          </div>
+        </div>
+        <!-- Outras Secções -->
+        <div id="cursos" class="view"><div class="card"><h3>Cursos Disponíveis</h3><p class="meta">Escolha por categoria</p><div style="margin-top:12px" id="coursesArea"></div></div></div>
+        <div id="exercicios" class="view"><div class="card"><h3>Exercícios</h3><p class="meta">Resolva perguntas por categoria</p><div style="margin-top:12px" id="exList"></div></div></div>
+        <div id="simulados" class="view"><div class="card"><h3>Simulados</h3><p class="meta">Teste seu conhecimento em prova cronometrada</p><div style="margin-top:12px" id="simList"></div></div></div>
+        <div id="guias" class="view"><div class="card"><h3>Guias práticos</h3><p class="meta">Aulas práticas e checklists</p><div style="margin-top:12px" id="guidesArea"></div></div></div>
+        <div id="progresso" class="view"><div class="card"><h3>Progresso Geral</h3><p class="meta">Seu histórico e resultados ao longo do tempo</p><div style="margin-top:12px" id="progressChartArea"></div><div style="margin-top:18px" id="progressHistoryArea"></div></div></div>
+        <div id="config" class="view"><div class="card"><h3>Configurações</h3><p class="meta">Preferências do painel</p><div style="margin-top:12px"><label class="small">Nome do usuário</label><input id="userName" style="width:100%;padding:10px;border-radius:8px;margin-top:8px;background:var(--glass);border:0;color:var(--text)" placeholder="Seu nome" /><div style="margin-top:12px"><button class="btn" data-action="save-config">Salvar</button></div></div></div></div>
+      </section>
+    </main>
+  </div>
+
+  <aside id="panel" class="panel" aria-hidden="true">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <strong id="panelTitle">Exercício</strong>
+      <div class="row">
+        <div class="muted" id="timer"></div>
+        <button class="btn secondary" data-action="close-panel">Fechar</button>
+      </div>
+    </div>
+    <div id="panelBody"></div>
+  </aside>
+
+  <div class="mobile-bar" id="mobileNav"></div>
+  <div class="toast" id="toast">Mensagem salva!</div>
+
+  <!-- JavaScript Externo -->
+  <script src="app.js" defer></script>
+</body>
+</html>
